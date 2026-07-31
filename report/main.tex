@@ -22,7 +22,7 @@
 
 
 \title{Customer Response Prediction Using Supervised Learning: \\
-A Comparative Analysis of Logistic Regression, Random Forest, Decision Tree, Naive Bayes, SVM, XGBoost and LightGBM
+A Comparative Analysis of Naive Bayes, k-Nearest Neighbors, Decision Tree, Random Forest, Gradient Boosting, XGBoost and LightGBM
 }
 
 \author{
@@ -37,18 +37,18 @@ Ankara, Turkey \\
 \maketitle
 
 \begin{abstract}
-At these days, many companies use campaingns in order to make their increase their sales and thus their profits. In order to not waste any resources, predicitng the right customer who is giong to respond to the campaign is an important part of this process.
-But these predictions are not always easy to make because there are many customers and many features that can be used to predict the customer response. In addition to that there is a remrkable class imbalance because only a small percentage of customers respond to the campaign.
+At these days, many companies use campaigns in order to make their increase their sales and thus their profits. In order to not waste any resources, predicting the right customer who is going to respond to the campaign is an important part of this process.
+But these predictions are not always easy to make because there are many customers and many features that can be used to predict the customer response. In addition to that there is a remarkable class imbalance because only a small percentage of customers respond to the campaign.
 This study proposes an end-to-end data mining pipeline based on the CRISP-DM framework to accurately predict customer response to a campaign.
 Using the Customer Personality Analysis dataset, we systematically evaluate the impact of  data preprocessing, domain-specific feature engineering, and multiple classification algorithms, including Naive Bayes, k-Nearest Neighbors, Decision Trees, Random Forest, and XGBoost.
-To overcome  the class imbalance, we used SMOTE and class weighting. Evaluation prioritized the F1-Score and Precision-Recall AUC over standard accuracy.
-Experimental results demonstrate that ensemble methods, specifically XGBoost and LightGBM combined with engineered metrics, gave  the highest predictive performance.
+To overcome the class imbalance, we used class weighting. Evaluation prioritized the F1-Score and Precision-Recall AUC over standard accuracy.
+Experimental results demonstrate that ensemble methods, specifically LightGBM combined with engineered metrics, gave the highest predictive performance, achieving an F1-Score of 0.62.
 Furthermore, the integration of SHAP (SHapley Additive exPlanations) values translates complex mathematical predictions into transparent, actionable business insights,
 This analysis revealed that past campaign acceptance and total spending are the main factors influencing future customer responses.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Data Mining, Customer Response Prediction, Classification, XGBoost, Feature Engineering, Explainable AI, SHAP, CRISP-DM.
+Data Mining, Customer Response Prediction, LightGBM, SHAP, CRISP-DM.
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -57,7 +57,7 @@ Data Mining, Customer Response Prediction, Classification, XGBoost, Feature Engi
 In the last decades, very large amounts of data about customers have been collected by companies through transactions etc.
 It is important to  understand the data in order to use it effectively to achieve our goals.
 If we understand the customers better, we can identify which one is going to respond to our campaign.
-By doing so we can optimize our buget by not wasting unnecessary money on campaigns and market our produts better.
+By doing so we can optimize our budget by not wasting unnecessary money on campaigns and market our products better.
 
 This study uses the Customer Personality Analysis dataset, which offers a comprehensive view of retail consumers.
 This project uses the Customer Personality Analysis dataset. It has a lot of features about customers.
@@ -78,7 +78,7 @@ Section II reviews related work in the domain of customer segmentation and predi
 Section III describes the dataset and the exploratory data analysis.
 Section IV details the methodology, including feature engineering, selection, and the classification algorithms that are used.
 Section V presents the experimental results and model comparisons.
-Section VI discusses the findings and interprets the models’ business desicions.
+Section VI discusses the findings and interprets the models’ business decisions.
 Finally, Section VII concludes the paper and mentions about future work.
 
 
@@ -94,8 +94,8 @@ Making the supervised learning more well-known in the marketing domain. \cite{re
 A variety of classification algorithms are used in this study to get a better understanding of the customer behavior.
 Decision Trees, introduced by Quinlan \cite{quinlan1986}, are one of the most interpretable supervised learning algorithms.
 They recursively divide the feature space by selecting attributes that maximize class separation according to some measures such as Information Gain or Gini Index(one of them can be selected).
-Their ability to model non-linear decision boundaries makes them suitable for many real-world classification problems because mostly real life proplems are non-linear.
-But, using an only desicion tree can be desieving because it can overfit. especially when the data is noisy or when we dont use pruning.So we need to be careful using them. Despite the overfitting risk, their interpretability valuable.
+Their ability to model non-linear decision boundaries makes them suitable for many real-world classification problems because mostly real life problems are non-linear.
+But, using an only decision tree can be deceiving because it can overfit. especially when the data is noisy or when we dont use pruning.So we need to be careful using them. Despite the overfitting risk, their interpretability valuable.
 
 Naive Bayes, although its strongly assume that features are independent conditionaly, ıt can provide a fast probabilistic baseline in data mining tasks \cite{domingos1997}.
 Although this assumption is not realistic in real-world datasets, the algorithm often achieves competitive performance while remaining computationally efficient.
@@ -103,7 +103,7 @@ It is used commonly as a baseline model because it is simple, fastly trained and
 
 The k-Nearest Neighbors (k-NN) algorithm \cite{cover1967} is a non-parametric, distance-based approach.
 It is effective for localized pattern recognition, if the feature space is properly scaled.
-K-NN can be very effective when it is used with appropriate preprocessing and distance metrics.It is impoert to select the best k value because K-NN is very sensitive to it. Small k value leads to underfitting and large k value  to overfitting.
+K-NN can be very effective when it is used with appropriate preprocessing and distance metrics.It is important to select the best k value because K-NN is very sensitive to it. Small k value leads to overfitting and large k value to underfitting.
 
 Using an only model cannot provide the results we want so using an esemble model can improve our results.
 Random Forest, introduced by Breiman \cite{breiman2001}, is a bagging-based ensemble learning algorithm that constructs a large collection of decision trees using bootstrap samples of the training data. At each split, only a random subset of features is considered, increasing the diversity among individual trees.By using the majority voting , the final prediciton is computed.
@@ -118,17 +118,17 @@ XGBoost has regualrizaiton techniques that reduces overfitting. It can also be t
 Model and algorithm selection is important but not as importnat as data preparation. When there is too much features our dimensionality increases as well. In order to reduse it we  can use feature selection.
 By selecting the important features and adjusting our data our model can learn more effectively and faster because redundant features that can overfit the model have been eliminated.
 In marketing campaigns most of the customers usually dont respond to the campaing so we have a class imbalance problem.
-We can solve this problem using two solutions. first one is using class weighting and the second one is synthetic sampling like SMOTE. These two solutions prevent the model mainly focusing one one class whis is the negative one.\cite{class_imbalance_study}.
+We can solve this problem using two solutions. first one is using class weighting and the second one is synthetic sampling like SMOTE. These two solutions prevent the model mainly focusing one one class which is the negative one.\cite{class_imbalance_study}.
 
-Studies that have been done before mainly focused on performence of the models predictions.
-In this study, we used different preprocessing strategies, feature engineering techniques, feature selection methods, and multiple classification algorithms to see how it affects the models predictive performence. This part is less common in the literature.
+Studies that have been done before mainly focused on performance of the models predictions.
+In this study, we used different preprocessing strategies, feature engineering techniques, feature selection methods, and multiple classification algorithms to see how it affects the models predictive performance. This part is less common in the literature.
 We also try not to see the model as a black box and try to understand it using SHAP values \cite{lundberg2017}.
 
 \section{Dataset Description}
 \label{sec:dataset}
 
 \subsection{Dataset Source}
-In this study we used Customer Personality Analysis dataset from kaggle repository. It is selected because ıt has impoertan details about customers which is important for response classification, such as demographic details or previous responses to the campaingns.
+In this study we used Customer Personality Analysis dataset from kaggle repository. It is selected because ıt has importantan details about customers which is important for response classification, such as demographic details or previous responses to the campaigns.
 
 
 \subsection{Dataset Characteristics}
@@ -188,7 +188,7 @@ Figure \ref{fig:eda_financials} highlights the relationship between these key fi
 Using the data should ben done ethically and we pay attention to this issue.
 
 The Customer Personality Analysis dataset, which is used in the project, is public and  anonymous. It contains no personally identifiable information (PII) such as names, exact addresses, or contact details, ensuring strict privacy preservation. 
-The analysis in this study is only for academic purposes and avoids any ethical problems.
+The analysis in this study is for academic purposes. Moreover, there is a risk of algorithmic profiling and discrimination when targeting customers; thus, predictions should not be used to exclude vulnerable demographics from beneficial offers.
 \section{Methodology}
 \label{sec:methodology}
 
@@ -245,7 +245,7 @@ To maximize predictive performance, advanced ensemble methods were also trained,
 
 
 \subsection{Hyperparameter Optimization}
-To ensure each algorithm reached its maximum predictive potential, exhaustive hyperparameter optimization was conducted using \texttt{GridSearchCV}. 
+To ensure each algorithm reached its maximum predictive potential, hyperparameter optimization was selectively conducted using \texttt{GridSearchCV} for highly sensitive algorithms, such as k-NN. 
 This technique evaluates a predefined grid of hyperparameters using 5-fold cross-validation on the training set. 
 For instance, the optimal number of neighbors ($k$) for the k-NN algorithm and the maximum tree depth for ensemble methods were carefully cross-validated to prevent data leakage and avoid overfitting on the test set.
 
@@ -268,9 +268,9 @@ By calculating the marginal contribution of each feature to the final prediction
 
 \subsection{Model Performance Comparison}
 In this study. we evaluated 7 different classificaiton algorithms prediction performance using a hold-out test set. 
-As presented in Table \ref{tab:model_results}, ensemble methods were better at classifying the minority class then the baseline models and have a higher macro F1-Score. 
+As presented in Table \ref{tab:model_results}, ensemble methods were better at classifying the minority class then the baseline models and have a higher positive-class F1-Score. 
 The data has class imbalance and because of that, we prioritized the F1-Score and Balanced Accuracy over raw Accuracy. 
-XGBoost achieved the highest overall performance, and better at correctly identifying  positive responders without increasing false positives. 
+LightGBM achieved the highest overall performance in F1-score, and better at correctly identifying positive responders without increasing false positives. 
 In contrast, baseline models such as Naive Bayes and k-Nearest Neighbors struggled to balance Precision and Recall, often heavily favoring the majority class despite algorithmic weighting strategies.
 
 \begin{table}[htbp]
@@ -298,7 +298,7 @@ LightGBM & \textbf{0.89} & \textbf{0.77} & \textbf{0.65} & \textbf{0.60} & \text
 
 \subsection{ROC and Precision-Recall Analysis}
 To further validate model robustness across varying decision thresholds, Receiver Operating Characteristic (ROC) and Precision-Recall (PR) curves were generated. 
-The ROC-AUC score for the XGBoost model was notably higher than its competitors, indicating a strong capacity to distinguish between responders and non-responders. 
+The ROC-AUC score for the Gradient Boosting model was notably higher than its competitors, indicating a strong capacity to distinguish between responders and non-responders. 
 More importantly, the PR-AUC score—which is highly sensitive to imbalanced datasets—confirmed that the gradient boosting architecture maintained high precision even as recall increased. Which showes us that simple classifiers are not suitable for this data set.
 Figure \ref{fig:roc_pr} visualizes these curves for the top-performing models.
 
@@ -311,14 +311,14 @@ Figure \ref{fig:roc_pr} visualizes these curves for the top-performing models.
 
 \subsection{Feature Importance}
 In addition to evaluating predictive performance, it is important to understand which features influence the model's decisions.
-We have found that newly generated engineered features contribute to prediciton ppower better that the other features after analyzing the XGBoost model's feature importance. 
+We have found that newly generated engineered features contribute to prediciton ppower better that the other features after analyzing the LightGBM model's feature importance. 
 For example, variables such as \texttt{Customer\_Value\_Score}, \texttt{Campaign\_Acceptance\_Count}, and \texttt{Total\_Spending} are one of those features which have a high impact on prediciton.
 On the other hand, some features had a less prediciton power such as \texttt{Age} and \texttt{Marital\_Status}. 
 These features provided significantly less predictive value.
 \subsection{Ablation Study Results}
 To  quantify the contribution of each stage in our data mining pipeline, an ablation study was conducted using the Random Forest classifier. 
 As shown in Table \ref{tab:ablation}, we  applied each step of the CRISP-DM process to the dataset.
-The results demonstrate that while data cleaning provides a minor stabilization in F1-Score (from 0.526 to 0.530), the most significant leap occurs during the Feature Engineering phase, where the F1-Score jumps to 0.606. Feature selection and hyperparameter tuning slightly generalize the model, preventing overfitting while maintaining high predictive power. This proves that domain-specific feature creation was the most critical factor in predicting customer response.
+The results demonstrate that while data cleaning provides a minor stabilization in F1-Score (from 0.526 to 0.530), the most significant leap occurs during the Feature Engineering phase, where the F1-Score jumps to 0.606. Feature selection and hyperparameter tuning resulted in a slight dip in raw F1-score (from 0.61 to 0.60) as shown in Table \ref{tab:ablation}, but this regularization is crucial for preventing overfitting and improving model generalization. This proves that domain-specific feature creation was the most critical factor in predicting customer response.
 
 \begin{table}[htbp]
 \caption{Ablation Study Results (Random Forest)}
@@ -344,13 +344,13 @@ Exp 5: + Hyperparam Tuning & 0.88 & 0.60 & 0.89 \\
 
 
 \subsection{Interpretation of SHAP Values}
-Using the SHAP (SHapley Additive exPlanations) framework, we were able to interpret the XGBoost model's decisions. Figure \ref{fig:shap_summary} visualizes the feature importance and the directional impact of each feature on the model's output.
+Using the SHAP (SHapley Additive exPlanations) framework, we were able to interpret the LightGBM model's decisions. Figure \ref{fig:shap_summary} visualizes the feature importance and the directional impact of each feature on the model's output.
 
 
 
 \begin{figure}[htbp]
 \centerline{\includegraphics[width=\columnwidth]{figures/shap_summary.png}}
-\caption{SHAP summary plot illustrating the impact of various features on the XGBoost model's predictions.}
+\caption{SHAP summary plot illustrating the impact of various features on the LightGBM model's predictions.}
 \label{fig:shap_summary}
 \end{figure}
 
@@ -381,13 +381,13 @@ Firstly, the dataset used in this study is not a time-series dataset.
 Consumer behavior changes over time, may exhibit seasonal patterns, and can be influenced by external factors such as economic conditions and inflation. 
 Therefore, one limitation of this study is the static nature of the dataset. 
 The absence of time-series transaction data prevents the model from capturing temporal changes and seasonal spending patterns, which may affect customer responses to marketing campaigns.
-Even though we used SMOTE and class weighting to deal with the class imbalance, it remained a problem for the model performance. This showed that the importance of evenly distributed data set. 
+Even though we used class weighting to deal with the class imbalance, it remained a challenge for the model performance. This showed that the importance of evenly distributed data set. 
 
 \section{Conclusion}
 \label{sec:conclusion}
 
 This study successfully developed an end-to-end data mining pipeline for predicting customer responses to marketing campaigns. 
-By following the CRISP-DM methodology, this study showed that the combination of domain-driven feature engineering and the XGBoost classifier achieved better predictive performance than the baseline models. 
+By following the CRISP-DM methodology, this study showed that the combination of domain-driven feature engineering and the LightGBM classifier achieved better predictive performance than the baseline models. 
 Additionally, the use of class weighting together with appropriate evaluation metrics, including the F1-score and PR-AUC, enabled a more reliable assessment of model performance under class imbalance. 
 Furthermore, the integration of SHAP values transformed the complex predictive model into a more transparent and interpretable decision-support tool. 
 The results indicate that past campaign acceptance and total customer spending are the most influential predictors of future customer engagement. 
