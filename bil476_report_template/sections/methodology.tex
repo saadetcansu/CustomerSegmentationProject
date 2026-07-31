@@ -1,0 +1,38 @@
+\section{Methodology}
+% [WRITING GUIDANCE]
+% Target length: 1.5 - 2 columns.
+% Discuss the CRISP-DM phases.
+
+\subsection{Data Preprocessing and Feature Engineering}
+% Summarize the preprocessing steps (imputation, outlier removal).
+% Discuss the creation of composite business metrics (Customer_Value_Score, etc.).
+
+% Insert Feature Engineering Summary Table
+\begin{table}[htbp]
+\caption{Feature Engineering Summary}
+\begin{center}
+\begin{tabular}{|l|p{5cm}|}
+\hline
+\textbf{New Feature} & \textbf{Derivation Logic} \\
+\hline
+Total\_Spending & Sum of all product category spending \\
+Customer\_Value\_Score & Formula combining spending, acceptance, and recency \\
+\hline
+\end{tabular}
+\label{tab:feature_eng}
+\end{center}
+\end{table}
+
+\subsection{Feature Selection}
+% Discuss methods used to reduce dimensionality (collinearity checks, RFE).
+
+\subsection{Classification Algorithms}
+% Describe the models compared: Decision Tree, Naive Bayes (GaussianNB), k-NN, Random Forest, XGBoost, etc.
+% For Naive Bayes, state its conditional independence assumption.
+% For k-NN, mention the distance metric and scaling requirement.
+
+\subsection{Evaluation Metrics}
+% Discuss why Accuracy is insufficient due to imbalance.
+% Introduce F1-Score, ROC-AUC, and PR-AUC.
+
+% Write your methodology details here...

@@ -1,0 +1,51 @@
+# ============================================================
+# .gitignore — Customer Segmentation Project
+# ============================================================
+
+# ── Python bytecode ──────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# ── Virtual environments ─────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+
+# ── Jupyter artifacts ────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ── Raw data (do NOT commit large datasets to git) ───────────
+data/*.csv
+data/*.xlsx
+data/*.xls
+data/*.parquet
+data/*.zip
+data/*.gz
+
+# ── Generated outputs (reproducible from code) ───────────────
+outputs/figures/*.png
+outputs/figures/*.pdf
+outputs/tables/*.csv
+outputs/tables/*.tex
+
+# ── Saved model artefacts ────────────────────────────────────
+models/*.pkl
+models/*.joblib
+
+# ── macOS system files ───────────────────────────────────────
+.DS_Store
+._*
+
+# ── IDE / Editor artefacts ───────────────────────────────────
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ── Environment variable files ───────────────────────────────
+.env
+.env.*
