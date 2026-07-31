@@ -81,7 +81,7 @@ Section V presents the experimental results and model comparisons.
 Section VI discusses the findings and interprets the models’ business decisions.
 Finally, Section VII concludes the paper and mentions about future work.
 
-
+The dataset was obtained from the Customer Personality Analysis dataset available on Kaggle: https://www.kaggle.com/datasets/imakash3011/customer-personality-analysis.
 
 \section{Related Work}
 \label{sec:related_work}
@@ -188,7 +188,7 @@ Figure \ref{fig:eda_financials} highlights the relationship between these key fi
 Using the data should ben done ethically and we pay attention to this issue.
 
 The Customer Personality Analysis dataset, which is used in the project, is public and  anonymous. It contains no personally identifiable information (PII) such as names, exact addresses, or contact details, ensuring strict privacy preservation. 
-The analysis in this study is for academic purposes. Moreover, there is a risk of algorithmic profiling and discrimination when targeting customers; thus, predictions should not be used to exclude vulnerable demographics from beneficial offers.
+The analysis in this study is for academic purposes. 
 \section{Methodology}
 \label{sec:methodology}
 
@@ -389,7 +389,7 @@ Even though we used class weighting to deal with the class imbalance, it remaine
 This study successfully developed an end-to-end data mining pipeline for predicting customer responses to marketing campaigns. 
 By following the CRISP-DM methodology, this study showed that the combination of domain-driven feature engineering and the LightGBM classifier achieved better predictive performance than the baseline models. 
 Additionally, the use of class weighting together with appropriate evaluation metrics, including the F1-score and PR-AUC, enabled a more reliable assessment of model performance under class imbalance. 
-Furthermore, the integration of SHAP values transformed the complex predictive model into a more transparent and interpretable decision-support tool. 
+Furthermore, the usage  of SHAP values transformed the complex predictive model into a more transparent and interpretable decision-support tool. 
 The results indicate that past campaign acceptance and total customer spending are the most influential predictors of future customer engagement. 
 Finally, future work could explore temporal sequence modeling techniques, such as Recurrent Neural Networks (RNNs), using longitudinal transaction data to capture changes in customer behavior over time and further improve prediction performance.
 
